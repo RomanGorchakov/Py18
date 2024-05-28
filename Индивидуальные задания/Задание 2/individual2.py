@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import argparse
@@ -6,6 +6,7 @@ import json
 import os.path
 import sys
 import random
+from dotenv import load_dotenv
 
 
 def get_plane(staff, race, number, type):
@@ -127,7 +128,7 @@ def show_plane(command_line = None):
 
     data_file = args.data
     if not data_file:
-        data_file = os.environ.get("PLANES1_DATA")
+        data_file = os.environ.get("PLANES2_DATA")
     if not data_file:
         print("The data file name is absent", file=sys.stderr)
         sys.exit(1)
@@ -156,3 +157,11 @@ def show_plane(command_line = None):
 
     if is_dirty:
         save_plane(data_file, airport)
+
+
+if __name__ == '__main__':
+    dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+    if os.path.exists(dotenv_path):
+        load_dotenv(dotenv_path)
+
+    show_plane()
